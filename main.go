@@ -1,11 +1,13 @@
-package behavior
+package main
 
 import (
-	"net/http"
-
 	"a2os/behavior/common"
+	"a2os/behavior/misc"
+	_ "a2os/behavior/docs"
 
 	"github.com/gin-gonic/gin"
+	"github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 // @title A2OS Behavior
@@ -76,28 +78,11 @@ func main() {
 	//	},
 	//})
 
+	// ONLY FOR DEBUGGING
 	// swagger router
-	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	type Message struct {
-		Message string `json:"message" example:"message"`
-	}
-	// Ping godoc
-	// @Summary PING-PONG
-	// @Description Ping health check
-	// @Tags miscellaneous
-	// @Accept json
-	// @Produce json
-	// @Success 200 {object} Message
-	// @Failure 400 {object} common.appErrJSON
-	// @Failure 404 {object} common.appErrJSON
-	// @Failure 500 {object} common.appErrJSON
-	// @Router /ping [get]
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, Message{
-			Message: "pong",
-		})
-	})
+	r.GET("/ping", misc.Ping)
 
 	//r.GET("/csrf", CSRF, func(c *gin.Context) {
 	//	c.Header("X-CSRF-TOKEN", csrf.GetToken(c))
