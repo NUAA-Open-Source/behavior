@@ -1,0 +1,79 @@
+basePath: '{{.BasePath}}'
+definitions:
+  common.appErrJSON:
+    properties:
+      err_code:
+        type: integer
+      message:
+        type: string
+    type: object
+  misc.Message:
+    properties:
+      message:
+        example: message
+        type: string
+    type: object
+host: api.behavior.a2os.club
+info:
+  contact:
+    email: a2os-general@googlegroups.com
+    name: A2OS Dev Team
+    url: https://groups.google.com/group/a2os-general
+  description: A2OS Behavior API Documentation.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: A2OS Behavior
+  version: 0.0.1
+paths:
+  /csrf:
+    get:
+      consumes:
+      - application/json
+      description: Get CSRF token and cookie
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: IN HEADER
+          headers:
+            string:
+              description: X-CSRF-TOKEN
+              type: string
+          schema:
+            type: string
+      summary: CSRF
+      tags:
+      - miscellaneous
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Ping health check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/misc.Message'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/common.appErrJSON'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/common.appErrJSON'
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/common.appErrJSON'
+            type: object
+      summary: PING-PONG
+      tags:
+      - miscellaneous
+swagger: "2.0"

@@ -1,11 +1,22 @@
-package behavior
+package main
 
 import (
+	"log"
 	"net/http"
+	"time"
 
 	"a2os/behavior/common"
+	"a2os/behavior/misc"
+	//"a2os/behavior/docs"
 
+	"github.com/gin-contrib/cors"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
+	"github.com/utrack/gin-csrf"
+
+	"io"
 )
 
 // @title A2OS Behavior
@@ -21,95 +32,85 @@ import (
 
 // @host api.behavior.a2os.club
 
+func init() {
+	common.SetConfig()
+	common.WatchConfig()
+}
+
 func main() {
 
 	// Before init router
-	//if common.DEBUG {
-	//	gin.SetMode(gin.DebugMode)
-	//} else {
-	//	gin.SetMode(gin.ReleaseMode)
-	//	// Redirect log to file
-	//	gin.DisableConsoleColor()
-	//	logFile := common.GetLogFile()
-	//	defer logFile.Close()
-	//	gin.DefaultWriter = io.MultiWriter(logFile)
-	//}
+	if viper.GetBool("basic.debug") {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+		// Redirect log to file
+		gin.DisableConsoleColor()
+		logFile := common.GetLogFile()
+		defer logFile.Close()
+		gin.DefaultWriter = io.MultiWriter(logFile)
+	}
 
 	r := gin.Default()
 	// 错误处理
 	r.Use(common.ErrorHandling())
 	// After init router
 	// CORS
-	//if common.DEBUG {
-	//	r.Use(cors.New(cors.Config{
-	//		AllowAllOrigins:  true,
-	//		AllowMethods:     common.CORS_ALLOW_METHODS,
-	//		AllowHeaders:     common.CORS_ALLOW_HEADERS,
-	//		AllowCredentials: true,
-	//		MaxAge:           12 * time.Hour,
-	//	}))
-	//	//r.Use(CORS())
-	//} else {
-	//	// RELEASE Mode
-	//	r.Use(cors.New(cors.Config{
-	//		AllowOrigins:     common.CORS_ALLOW_ORIGINS,
-	//		AllowMethods:     common.CORS_ALLOW_METHODS,
-	//		AllowHeaders:     common.CORS_ALLOW_HEADERS,
-	//		AllowCredentials: true,
-	//		MaxAge:           12 * time.Hour,
-	//	}))
-	//}
+
+	if viper.GetBool("basic.debug") {
+		r.Use(cors.New(cors.Config{
+			// The value of the 'Access-Control-Allow-Origin' header in the
+			// response must not be the wildcard '*' when the request's
+			// credentials mode is 'include'.
+			AllowOrigins:     common.CORS_ALLOW_DEBUG_ORIGINS,
+			AllowMethods:     common.CORS_ALLOW_METHODS,
+			AllowHeaders:     common.CORS_ALLOW_HEADERS,
+			ExposeHeaders:    common.CORS_EXPOSE_HEADERS,
+			AllowCredentials: true,
+			AllowWildcard:    true,
+			MaxAge:           12 * time.Hour,
+		}))
+		//r.Use(CORS())
+	} else {
+		// RELEASE Mode
+		r.Use(cors.New(cors.Config{
+			AllowOrigins:     common.CORS_ALLOW_ORIGINS,
+			AllowMethods:     common.CORS_ALLOW_METHODS,
+			AllowHeaders:     common.CORS_ALLOW_HEADERS,
+			ExposeHeaders:    common.CORS_EXPOSE_HEADERS,
+			AllowCredentials: true,
+			MaxAge:           12 * time.Hour,
+		}))
+	}
 
 	// CSRF
-	//store := cookie.NewStore(common.CSRF_COOKIE_SECRET)
-	//r.Use(sessions.Sessions(common.CSRF_SESSION_NAME, store))
-	//CSRF := csrf.Middleware(csrf.Options{
-	//	Secret: common.CSRF_SECRET,
-	//	ErrorFunc: func(c *gin.Context) {
-	//		//c.String(http.StatusBadRequest, "CSRF token mismatch")
-	//		c.JSON(http.StatusBadRequest, gin.H{
-	//			"err_code": 10007,
-	//			"message":  common.Errors[10007],
-	//		})
-	//		log.Println(c.ClientIP(), "CSRF token mismatch")
-	//		c.Abort()
-	//	},
-	//})
+	store := cookie.NewStore(common.CSRF_COOKIE_SECRET)
+	r.Use(sessions.Sessions(common.CSRF_SESSION_NAME, store))
+	CSRF := csrf.Middleware(csrf.Options{
+		Secret: common.CSRF_SECRET,
+		ErrorFunc: func(c *gin.Context) {
+			//c.String(http.StatusBadRequest, "CSRF token mismatch")
+			c.JSON(http.StatusBadRequest, gin.H{
+				"err_code": 10007,
+				"message":  common.Errors[10007],
+			})
+			log.Println(c.ClientIP(), "CSRF token mismatch")
+			c.Abort()
+		},
+	})
 
 	// swagger router
 	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	type Message struct {
-		Message string `json:"message" example:"message"`
-	}
-	// Ping godoc
-	// @Summary PING-PONG
-	// @Description Ping health check
-	// @Tags miscellaneous
-	// @Accept json
-	// @Produce json
-	// @Success 200 {object} Message
-	// @Failure 400 {object} common.appErrJSON
-	// @Failure 404 {object} common.appErrJSON
-	// @Failure 500 {object} common.appErrJSON
-	// @Router /ping [get]
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, Message{
-			Message: "pong",
-		})
-	})
-
-	//r.GET("/csrf", CSRF, func(c *gin.Context) {
-	//	c.Header("X-CSRF-TOKEN", csrf.GetToken(c))
-	//	c.String(http.StatusOK, "IN HEADER")
-	//	log.Println(c.ClientIP(), "response CSRF token", csrf.GetToken(c))
-	//})
+	// misc operations
+	r.GET("/ping", misc.Ping)
+	r.GET("/csrf", CSRF, misc.Csrf)
 
 	// the API with CSRF middleware
-	//v1Csrf := r.Group("/v1", CSRF)
-	//{
-	//	v1Csrf.POST("/event")
-	//}
+	v1Csrf := r.Group("/v1", CSRF)
+	{
+		v1Csrf.POST("/event")
+	}
 
-	r.Run(":" + "8080") // listen and serve on 0.0.0.0:PORT
+	r.Run(":" + viper.GetString("basic.port")) // listen and serve on 0.0.0.0:PORT
 }
