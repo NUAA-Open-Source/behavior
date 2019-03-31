@@ -257,8 +257,10 @@
 			"revisionTime": "2019-03-12T14:14:37Z"
 		},
 		{
+			"checksumSHA1": "kQD7MIlLuo5s11sHlv3ySwDrYII=",
 			"path": "github.com/swaggo/gin-swagger",
-			"revision": ""
+			"revision": "9668210ca1d9ab20971db7908bc57a021677d69e",
+			"revisionTime": "2019-03-29T01:46:37Z"
 		},
 		{
 			"checksumSHA1": "A1gNAXglJwicLgCC7OIE7+a6KyQ=",

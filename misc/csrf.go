@@ -1,10 +1,11 @@
 package misc
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/utrack/gin-csrf"
-	"net/http"
-	"log"
 )
 
 // Ping godoc
@@ -14,7 +15,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {string} string "IN HEADER"
-// @Header 200 {string} string "X-CSRF-TOKEN"
+// @Header 200 {string} X-CSRF-TOKEN "CSRF Token hash value"
 // @Router /csrf [get]
 func Csrf(c *gin.Context) {
 	c.Header("X-CSRF-TOKEN", csrf.GetToken(c))

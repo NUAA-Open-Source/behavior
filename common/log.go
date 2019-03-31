@@ -15,11 +15,11 @@ var (
 func InitLogger() {
 
 	os.Mkdir("log", os.ModePerm|os.ModeDir)
-	logFile, err = os.OpenFile("log/safeu.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	logFile, err = os.OpenFile("log/behavior.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if viper.GetBool("basic.debug") {
+	if !viper.GetBool("basic.debug") {
 		log.SetOutput(logFile)
 	}
 }

@@ -1,12 +1,13 @@
 package misc
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Message struct {
-	Message string `json:"message" example:"message"`
+	Message string `json:"message" example:"pong"`
 }
 
 // Ping godoc

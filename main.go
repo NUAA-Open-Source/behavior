@@ -1,22 +1,23 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net/http"
 	"time"
 
 	"a2os/behavior/common"
+	_ "a2os/behavior/docs"
 	"a2os/behavior/misc"
-	//"a2os/behavior/docs"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	"github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"github.com/utrack/gin-csrf"
-
-	"io"
 )
 
 // @title A2OS Behavior
@@ -33,8 +34,11 @@ import (
 // @host api.behavior.a2os.club
 
 func init() {
+	// init config
 	common.SetConfig()
 	common.WatchConfig()
+	// init logger
+	common.InitLogger()
 }
 
 func main() {
@@ -100,7 +104,9 @@ func main() {
 	})
 
 	// swagger router
-	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	if viper.GetBool("basic.debug") {
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
 	// misc operations
 	r.GET("/ping", misc.Ping)

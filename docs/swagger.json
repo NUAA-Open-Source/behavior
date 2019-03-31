@@ -37,9 +37,9 @@
                             "type": "string"
                         },
                         "headers": {
-                            "string": {
+                            "X-CSRF-TOKEN": {
                                 "type": "string",
-                                "description": "X-CSRF-TOKEN"
+                                "description": "CSRF Token hash value"
                             }
                         }
                     }
@@ -66,50 +66,18 @@
                             "type": "object",
                             "$ref": "#/definitions/misc.Message"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/common.appErrJSON"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/common.appErrJSON"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/common.appErrJSON"
-                        }
                     }
                 }
             }
         }
     },
     "definitions": {
-        "common.appErrJSON": {
-            "type": "object",
-            "properties": {
-                "err_code": {
-                    "type": "integer"
-                },
-                "message": {
-                    "type": "string"
-                }
-            }
-        },
         "misc.Message": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string",
-                    "example": "message"
+                    "example": "pong"
                 }
             }
         }

@@ -1,16 +1,9 @@
 basePath: '{{.BasePath}}'
 definitions:
-  common.appErrJSON:
-    properties:
-      err_code:
-        type: integer
-      message:
-        type: string
-    type: object
   misc.Message:
     properties:
       message:
-        example: message
+        example: pong
         type: string
     type: object
 host: api.behavior.a2os.club
@@ -37,8 +30,8 @@ paths:
         "200":
           description: IN HEADER
           headers:
-            string:
-              description: X-CSRF-TOKEN
+            X-CSRF-TOKEN:
+              description: CSRF Token hash value
               type: string
           schema:
             type: string
@@ -57,21 +50,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/misc.Message'
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/common.appErrJSON'
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/common.appErrJSON'
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/common.appErrJSON'
             type: object
       summary: PING-PONG
       tags:
