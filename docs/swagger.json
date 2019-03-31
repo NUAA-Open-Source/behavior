@@ -1,0 +1,85 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "A2OS Behavior API Documentation.",
+        "title": "A2OS Behavior",
+        "contact": {
+            "name": "A2OS Dev Team",
+            "url": "https://groups.google.com/group/a2os-general",
+            "email": "a2os-general@googlegroups.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "0.0.1"
+    },
+    "host": "api.behavior.a2os.club",
+    "basePath": "{{.BasePath}}",
+    "paths": {
+        "/csrf": {
+            "get": {
+                "description": "Get CSRF token and cookie",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "miscellaneous"
+                ],
+                "summary": "CSRF",
+                "responses": {
+                    "200": {
+                        "description": "IN HEADER",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "headers": {
+                            "X-CSRF-TOKEN": {
+                                "type": "string",
+                                "description": "CSRF Token hash value"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "Ping health check",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "miscellaneous"
+                ],
+                "summary": "PING-PONG",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/misc.Message"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "misc.Message": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "pong"
+                }
+            }
+        }
+    }
+}

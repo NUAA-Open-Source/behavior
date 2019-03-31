@@ -10,8 +10,8 @@ safeu-backend
 !safeu-backend/
 
 # Ignore config file
-conf/db.json
-conf/cloud.yml
+conf/behavior.yml
+conf/behavior.yaml
 
 # Ignore GoLand config files
 .idea/
