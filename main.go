@@ -8,12 +8,14 @@ import (
 
 	"a2os/behavior/common"
 	_ "a2os/behavior/docs"
+	"a2os/behavior/event"
 	"a2os/behavior/misc"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -33,12 +35,20 @@ import (
 
 // @host api.behavior.a2os.club
 
+func migrate(db *gorm.DB) {
+	db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_bin auto_increment=1").AutoMigrate(&event.Event{})
+}
+
 func init() {
 	// init config
 	common.SetConfig()
 	common.WatchConfig()
 	// init logger
 	common.InitLogger()
+
+	// init Database
+	db := common.InitDB()
+	migrate(db)
 }
 
 func main() {
@@ -115,7 +125,7 @@ func main() {
 	// the API with CSRF middleware
 	v1Csrf := r.Group("/v1", CSRF)
 	{
-		v1Csrf.POST("/event")
+		v1Csrf.POST("/event", event.Create)
 	}
 
 	r.Run(":" + viper.GetString("basic.port")) // listen and serve on 0.0.0.0:PORT

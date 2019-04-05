@@ -147,6 +147,7 @@ var Errors = map[int]string{
 	10005: "Missing required parameter",
 	10006: "Resource unavailable",
 	10007: "CSRF token mismatch",
+	10008: "This service is undergoing maintenance",
 
 	// 应用级错误
 	20000: "Application error",

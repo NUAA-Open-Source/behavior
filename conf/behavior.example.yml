@@ -2,3 +2,14 @@
 basic:
   debug: true
   port: "8080"
+storage:
+  mysql:
+    user: root
+    password:
+    host: localhost
+    port: "3306"
+    database: behavior
+    timezone: Asia%2FShanghai
+    max_idle_conns: 20
+    max_open_conns: 100  # Not used
+    retry_interval: 20
