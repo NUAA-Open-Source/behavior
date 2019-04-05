@@ -2,10 +2,10 @@ package common
 
 // Cross-sites resource sharing settings
 var CORS_ALLOW_ORIGINS = []string{
-	"https://safeu.a2os.club",
-	"https://test.safeu.a2os.club",
-	"http://safeu.a2os.club",
-	"http://test.safeu.a2os.club",
+	"https://behavior.a2os.club",
+	"https://test.behavior.a2os.club",
+	"http://behavior.a2os.club",
+	"http://test.behavior.a2os.club",
 }
 
 var CORS_ALLOW_DEBUG_ORIGINS = []string{
@@ -39,6 +39,6 @@ var CORS_EXPOSE_HEADERS = []string{
 var CSRF_COOKIE_SECRET = []byte("csrf-secret")
 
 const (
-	CSRF_SESSION_NAME string = "safeu-session"
-	CSRF_SECRET       string = "safeu-secret"
+	CSRF_SESSION_NAME string = "behavior-session"
+	CSRF_SECRET       string = "behavior-secret"
 )

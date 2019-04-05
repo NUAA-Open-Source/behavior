@@ -10,21 +10,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-//
-//type MariaDB struct {
-//	User         string
-//	Pass         string
-//	Host         string
-//	Port         string
-//	Database     string
-//	MaxIdleConns int
-//	MaxOpenConns int
-//}
-
-//type DBs struct {
-//	MariaDB *MariaDB
-//}
-
 type Database struct {
 	*gorm.DB
 }

@@ -8,18 +8,18 @@ import (
 
 	"a2os/behavior/common"
 	_ "a2os/behavior/docs"
+	"a2os/behavior/event"
 	"a2os/behavior/misc"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"github.com/utrack/gin-csrf"
-	"github.com/jinzhu/gorm"
-	"a2os/behavior/event"
 )
 
 // @title A2OS Behavior

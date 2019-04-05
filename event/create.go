@@ -1,12 +1,24 @@
 package event
 
 import (
-	"github.com/gin-gonic/gin"
-	"a2os/behavior/common"
-	"net/http"
 	"log"
+	"net/http"
+
+	"a2os/behavior/common"
+
+	"github.com/gin-gonic/gin"
 )
 
+// CreateEvent godoc
+// @Summary Create an event
+// @Description Create an new event record
+// @Tags event
+// @Accept json
+// @Produce json
+// @Param event body event.Event true "Add event"
+// @Success 200 {string} string "OK"
+// @Failure 400 {object} common.appErrJSON
+// @Router /v1/event [post]
 func Create(c *gin.Context) {
 	db := common.GetDB()
 
@@ -17,7 +29,7 @@ func Create(c *gin.Context) {
 
 	newEvent := Event{
 		Name: request.Name,
-		Src: request.Src,
+		Src:  request.Src,
 	}
 
 	db.Create(&newEvent)
