@@ -1,5 +1,19 @@
 basePath: '{{.BasePath}}'
 definitions:
+  common.appErrJSON:
+    properties:
+      err_code:
+        type: integer
+      message:
+        type: string
+    type: object
+  event.Event:
+    properties:
+      name:
+        type: string
+      src:
+        type: string
+    type: object
   misc.Message:
     properties:
       message:
@@ -54,4 +68,32 @@ paths:
       summary: PING-PONG
       tags:
       - miscellaneous
+  /v1/event:
+    post:
+      consumes:
+      - application/json
+      description: Create an new event record
+      parameters:
+      - description: Add event
+        in: body
+        name: event
+        required: true
+        schema:
+          $ref: '#/definitions/event.Event'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/common.appErrJSON'
+            type: object
+      summary: Create an event
+      tags:
+      - event
 swagger: "2.0"
