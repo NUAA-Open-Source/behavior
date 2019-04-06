@@ -69,9 +69,73 @@
                     }
                 }
             }
+        },
+        "/v1/event": {
+            "post": {
+                "description": "Create an new event record",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "Create an event",
+                "parameters": [
+                    {
+                        "description": "Add event",
+                        "name": "event",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/event.Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/common.appErrJSON"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "common.appErrJSON": {
+            "type": "object",
+            "properties": {
+                "err_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "event.Event": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "src": {
+                    "type": "string"
+                }
+            }
+        },
         "misc.Message": {
             "type": "object",
             "properties": {

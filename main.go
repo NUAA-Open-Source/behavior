@@ -68,6 +68,7 @@ func main() {
 	r := gin.Default()
 	// 错误处理
 	r.Use(common.ErrorHandling())
+	r.Use(common.MaintenanceHandling())
 	// After init router
 	// CORS
 
