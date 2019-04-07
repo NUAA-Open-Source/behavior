@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/getsentry/raven-go"
 	"github.com/spf13/viper"
 )
 
@@ -17,6 +18,7 @@ func InitLogger() {
 	os.Mkdir("log", os.ModePerm|os.ModeDir)
 	logFile, err = os.OpenFile("log/behavior.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
+		raven.CaptureError(err, map[string]string{"type": "log"})
 		log.Fatal(err)
 	}
 	if !viper.GetBool("basic.debug") {

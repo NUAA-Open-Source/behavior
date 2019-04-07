@@ -17,9 +17,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"github.com/utrack/gin-csrf"
+	csrf "github.com/utrack/gin-csrf"
 )
 
 // @title A2OS Behavior
@@ -41,8 +41,13 @@ func migrate(db *gorm.DB) {
 
 func init() {
 	// init config
+	common.DefaultConfig()
 	common.SetConfig()
 	common.WatchConfig()
+
+	// init sentry error tracking service
+	common.InitSentry()
+
 	// init logger
 	common.InitLogger()
 

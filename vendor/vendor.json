@@ -27,6 +27,12 @@
 			"revisionTime": "2016-04-05T07:15:01Z"
 		},
 		{
+			"checksumSHA1": "JelNOs9KKcDgBoLsKIoJ7Tk8RLc=",
+			"path": "github.com/certifi/gocertifi",
+			"revision": "abcd5707844888d7088866f25df3a7a2ac337dc4",
+			"revisionTime": "2019-01-05T02:10:04Z"
+		},
+		{
 			"checksumSHA1": "pXA0VXOMBMY18/4WFJjqnsT51jo=",
 			"path": "github.com/dchest/uniuri",
 			"revision": "8902c56451e9b58ff940bbe5fec35d5f9c04584a",
@@ -37,6 +43,12 @@
 			"path": "github.com/fsnotify/fsnotify",
 			"revision": "1485a34d5d5723fea214f5710708e19a831720e4",
 			"revisionTime": "2019-03-12T18:14:46Z"
+		},
+		{
+			"checksumSHA1": "pSOe5JYj2zJZhK2CMMfMJ3ts4E4=",
+			"path": "github.com/getsentry/raven-go",
+			"revision": "04157b81cbfb30cf2092836041063857d8ce9b96",
+			"revisionTime": "2019-03-05T11:50:53Z"
 		},
 		{
 			"checksumSHA1": "XNyrvOw+twqjPJvZjr13wzae4X4=",

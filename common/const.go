@@ -1,5 +1,8 @@
 package common
 
+// behavior version
+const VERSION = "0.0.1"
+
 // Cross-sites resource sharing settings
 var CORS_ALLOW_ORIGINS = []string{
 	"https://behavior.a2os.club",
