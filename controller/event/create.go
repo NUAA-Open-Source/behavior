@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"a2os/behavior/common"
+	"a2os/behavior/model"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,12 +23,12 @@ import (
 func Create(c *gin.Context) {
 	db := common.GetDB()
 
-	var request Request
+	var request CreateRequest
 	if common.FuncHandler(c, c.ShouldBindJSON(&request), nil, http.StatusBadRequest, 10003) {
 		return
 	}
 
-	newEvent := Event{
+	newEvent := model.Event{
 		Name: request.Name,
 		Src:  request.Src,
 	}

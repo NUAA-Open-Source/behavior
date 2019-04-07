@@ -7,9 +7,10 @@ import (
 	"time"
 
 	"a2os/behavior/common"
+	"a2os/behavior/controller/event"
+	"a2os/behavior/controller/misc"
 	_ "a2os/behavior/docs"
-	"a2os/behavior/event"
-	"a2os/behavior/misc"
+	"a2os/behavior/model"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
@@ -36,7 +37,7 @@ import (
 // @host api.behavior.a2os.club
 
 func migrate(db *gorm.DB) {
-	db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_bin auto_increment=1").AutoMigrate(&event.Event{})
+	db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_bin auto_increment=1").AutoMigrate(&model.Event{})
 }
 
 func init() {
