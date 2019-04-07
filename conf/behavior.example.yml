@@ -14,3 +14,7 @@ storage:
     max_open_conns: 100
     timezone: Asia%2FShanghai
     retry_interval: 20
+sentry:
+  dsn: "https://your_sentry_dsn_URL"
+  default_logger_name: "behavior"
+  sample_rate: 1

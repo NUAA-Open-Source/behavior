@@ -7,9 +7,10 @@ import (
 	"time"
 
 	"a2os/behavior/common"
+	"a2os/behavior/controller/event"
+	"a2os/behavior/controller/misc"
 	_ "a2os/behavior/docs"
-	"a2os/behavior/event"
-	"a2os/behavior/misc"
+	"a2os/behavior/model"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/sessions"
@@ -17,9 +18,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"github.com/utrack/gin-csrf"
+	csrf "github.com/utrack/gin-csrf"
 )
 
 // @title A2OS Behavior
@@ -36,13 +37,18 @@ import (
 // @host api.behavior.a2os.club
 
 func migrate(db *gorm.DB) {
-	db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_bin auto_increment=1").AutoMigrate(&event.Event{})
+	db.Set("gorm:table_options", "ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_bin auto_increment=1").AutoMigrate(&model.Event{})
 }
 
 func init() {
 	// init config
+	common.DefaultConfig()
 	common.SetConfig()
 	common.WatchConfig()
+
+	// init sentry error tracking service
+	common.InitSentry()
+
 	// init logger
 	common.InitLogger()
 
