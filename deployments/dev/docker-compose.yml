@@ -1,20 +1,5 @@
 version: '3'
 services:
-#  nginx:
-#    image: nginx
-#    volumes:
-#      - ../../conf/nginx/nginx.dev.conf:/etc/nginx/nginx.conf
-#      - ../../conf/nginx/testapi.behavior.a2os.club:/etc/nginx/sites-enabled/testapi.behavior.a2os.club
-#      - /etc/letsencrypt/live/testapi.behavior.a2os.club:/opt/nginx/testapi.behavior.a2os.club/
-#    environment:
-#      - TZ=Asia/Shanghai
-#    ports:
-#      - "80:80"
-#    networks:
-#      - webnet
-#    depends_on:
-#      - web
-#    restart: on-failure
   web:
     build:
       context: ../..
