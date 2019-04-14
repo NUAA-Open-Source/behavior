@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  behavior:
     build:
       context: ../..
       dockerfile: ././build/package/behavior-dev/Dockerfile
@@ -10,36 +10,36 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - "8080:8080"
+      - "8090:8080"
     networks:
-      - webnet
-    depends_on:
-      - db
+      - behavior-app-net
+    # depends_on:
+    #   - db
 #      - redis
     restart: always
 
-  db:
-    environment:
-      - TZ=Asia/Shanghai
-      - MYSQL_ROOT_PASSWORD=behavior
-      - MYSQL_DATABASE=behavior
-    image: mariadb:10.3
-    volumes:
-      - ../../data-dev/mariadb:/var/lib/mysql
-      - ../../conf/mariadb:/etc/mysql/conf.d
-    ports:
-      - "3306:3306"
-    networks:
-      - webnet
-    restart: on-failure
+  # db:
+  #   environment:
+  #     - TZ=Asia/Shanghai
+  #     - MYSQL_ROOT_PASSWORD=behavior
+  #     - MYSQL_DATABASE=behavior
+  #   image: mariadb:10.3
+  #   volumes:
+  #     - ../../data-dev/mariadb:/var/lib/mysql
+  #     - ../../conf/mariadb:/etc/mysql/conf.d
+  #   ports:
+  #     - "3306:3306"
+  #   networks:
+  #     - behavior-app-net
+  #   restart: on-failure
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - "9000:8080"
-    networks:
-      - webnet
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - "10000:8080"
+  #   networks:
+  #     - behavior-app-net
 
 #  redis:
 #    image: redis:5.0.3-alpine
@@ -52,8 +52,8 @@ services:
 #    ports:
 #      - "6379:6379"
 #    networks:
-#      - webnet
+#      - behavior-app-net
 #    restart: on-failure
 
 networks:
-  webnet:
+  behavior-app-net:

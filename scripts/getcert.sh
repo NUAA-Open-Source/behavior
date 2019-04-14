@@ -27,9 +27,11 @@ then
     chmod 400 ~/.secrets/certbot/cloudflare.ini
 
     # just for Ubuntu/Debian
-    apt update
-    apt install python-pip -y
-    pip install certbot-dns-cloudflare
+    echo -e "Install certbot-dns-cloudflare package"
+    sudo apt update -y
+    sudo apt-get install build-essential libssl-dev libffi-dev python-dev python-pip -y
+    # sudo pip install --upgrade --ignore-installed certbot-dns-cloudflare -y
+    sudo pip install certbot-dns-cloudflare -y
 
     certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/.secrets/certbot/cloudflare.ini -d $domain
 else
