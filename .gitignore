@@ -3,6 +3,7 @@ log/
 
 # Ignore docker database volume
 db-data/
+data-dev/
 data/
 
 # Ignore binary file and only file
