@@ -5,10 +5,10 @@ const VERSION = "1.0.0-alpha"
 
 // Cross-sites resource sharing settings
 var CORS_ALLOW_ORIGINS = []string{
+	"https://safeu.a2os.club",
+	"http://safeu.a2os.club",
 	"https://behavior.a2os.club",
-	"https://test.behavior.a2os.club",
 	"http://behavior.a2os.club",
-	"http://test.behavior.a2os.club",
 }
 
 var CORS_ALLOW_DEBUG_ORIGINS = []string{

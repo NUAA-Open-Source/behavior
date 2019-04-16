@@ -24,7 +24,7 @@ import (
 )
 
 // @title A2OS Behavior
-// @version 0.0.1
+// @version 1.0.0-alpha
 // @description A2OS Behavior API Documentation.
 
 // @contact.name A2OS Dev Team
