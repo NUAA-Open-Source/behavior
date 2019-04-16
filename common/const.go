@@ -1,7 +1,7 @@
 package common
 
 // behavior version
-const VERSION = "0.0.1"
+const VERSION = "1.0.0-alpha"
 
 // Cross-sites resource sharing settings
 var CORS_ALLOW_ORIGINS = []string{
