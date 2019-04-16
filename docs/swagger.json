@@ -17,6 +17,35 @@
     "host": "api.behavior.a2os.club",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/csrf": {
+            "get": {
+                "description": "Get CSRF token and cookie",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "miscellaneous"
+                ],
+                "summary": "CSRF",
+                "responses": {
+                    "200": {
+                        "description": "IN HEADER",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "headers": {
+                            "X-CSRF-TOKEN": {
+                                "type": "string",
+                                "description": "CSRF Token hash value"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/ping": {
             "get": {
                 "description": "Ping health check",
@@ -35,25 +64,46 @@
                         "description": "OK",
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/miscellaneous.Message"
+                            "$ref": "#/definitions/misc.Message"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/event": {
+            "post": {
+                "description": "Create an new event record",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "event"
+                ],
+                "summary": "Create an event",
+                "parameters": [
+                    {
+                        "description": "Add event",
+                        "name": "event",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/event.Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/common.appErrJSON"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "type": "object",
-                            "$ref": "#/definitions/common.appErrJSON"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "type": "object",
                             "$ref": "#/definitions/common.appErrJSON"
@@ -75,12 +125,23 @@
                 }
             }
         },
-        "miscellaneous.Message": {
+        "event.Event": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "src": {
+                    "type": "string"
+                }
+            }
+        },
+        "misc.Message": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string",
-                    "example": "message"
+                    "example": "pong"
                 }
             }
         }
