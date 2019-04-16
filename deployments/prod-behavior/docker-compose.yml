@@ -1,0 +1,49 @@
+version: '3'
+services:
+  behavior1:
+    build:
+      context: ../..
+      dockerfile: ././build/package/behavior/Dockerfile
+    volumes:
+      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../conf:/go/src/a2os/behavior/conf/
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8080:8080"
+    networks:
+      - behavior-app-net
+    restart: always
+  
+  behavior2:
+    build:
+      context: ../..
+      dockerfile: ././build/package/behavior/Dockerfile
+    volumes:
+      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../conf:/go/src/a2os/behavior/conf/
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8081:8080"
+    networks:
+      - behavior-app-net
+    restart: always
+  
+  behavior3:
+    build:
+      context: ../..
+      dockerfile: ././build/package/behavior/Dockerfile
+    volumes:
+      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../conf:/go/src/a2os/behavior/conf/
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "8082:8080"
+    networks:
+      - behavior-app-net
+    restart: always
+
+networks:
+  behavior-app-net:

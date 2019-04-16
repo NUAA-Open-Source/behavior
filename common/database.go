@@ -21,13 +21,19 @@ var (
 func InitDB() *gorm.DB {
 
 	var (
-		db *gorm.DB
-		e  error
+		db                 *gorm.DB
+		e                  error
+		mysqlConnectString string
 	)
 
-	mysqlConnectString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=%s", viper.GetString("storage.mysql.user"), viper.GetString("storage.mysql.password"), viper.GetString("storage.mysql.host"), viper.GetString("storage.mysql.port"), viper.GetString("storage.mysql.database"), viper.GetString("storage.mysql.timezone"))
-	// 重试连接
-	for db, e = gorm.Open("mysql", mysqlConnectString); e != nil; {
+	for {
+		mysqlConnectString = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=%s", viper.GetString("storage.mysql.user"), viper.GetString("storage.mysql.password"), viper.GetString("storage.mysql.host"), viper.GetString("storage.mysql.port"), viper.GetString("storage.mysql.database"), viper.GetString("storage.mysql.timezone"))
+		db, e = gorm.Open("mysql", mysqlConnectString)
+		if e == nil {
+			break
+		}
+
+		db.Close()
 		fmt.Println("Gorm Open DB Err: ", e)
 		log.Println(fmt.Sprintf("GORM cannot connect to database, retry in %d seconds...", viper.GetInt("storage.mysql.retry_interval")))
 		time.Sleep(time.Duration(viper.GetInt("storage.mysql.retry_interval")) * time.Second)
