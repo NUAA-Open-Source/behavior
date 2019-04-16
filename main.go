@@ -120,6 +120,7 @@ func main() {
 		},
 	})
 
+	// ONLY FOR DEBUGGING
 	// swagger router
 	if viper.GetBool("basic.debug") {
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

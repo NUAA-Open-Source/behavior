@@ -75,6 +75,7 @@ func CustomWrapHandler(config *Config, h *webdav.Handler) gin.HandlerFunc {
 			return
 		default:
 			h.ServeHTTP(c.Writer, c.Request)
+
 		}
 	}
 }
