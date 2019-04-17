@@ -5,7 +5,7 @@ services:
       context: ../..
       dockerfile: ././build/package/behavior/Dockerfile
     volumes:
-      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../log/behavior1:/go/src/a2os/behavior/log/
       - ../../conf:/go/src/a2os/behavior/conf/
     environment:
       - TZ=Asia/Shanghai
@@ -20,7 +20,7 @@ services:
       context: ../..
       dockerfile: ././build/package/behavior/Dockerfile
     volumes:
-      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../log/behavior2:/go/src/a2os/behavior/log/
       - ../../conf:/go/src/a2os/behavior/conf/
     environment:
       - TZ=Asia/Shanghai
@@ -35,7 +35,7 @@ services:
       context: ../..
       dockerfile: ././build/package/behavior/Dockerfile
     volumes:
-      - ../../log/web:/go/src/a2os/behavior/log/
+      - ../../log/behavior3:/go/src/a2os/behavior/log/
       - ../../conf:/go/src/a2os/behavior/conf/
     environment:
       - TZ=Asia/Shanghai
