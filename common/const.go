@@ -39,9 +39,9 @@ var CORS_EXPOSE_HEADERS = []string{
 	"Token",
 }
 
-var CSRF_COOKIE_SECRET = []byte("csrf-secret")
+// var CSRF_COOKIE_SECRET = []byte("csrf-secret")
 
-const (
-	CSRF_SESSION_NAME string = "behavior-session"
-	CSRF_SECRET       string = "behavior-secret"
-)
+// const (
+// 	CSRF_SESSION_NAME string = "behavior-session"
+// 	CSRF_SECRET       string = "behavior-secret"
+// )

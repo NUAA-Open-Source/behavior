@@ -40,6 +40,10 @@ func DefaultConfig() error {
 	viper.SetDefault("basic.debug", true)
 	viper.SetDefault("basic.maintainance", false)
 	viper.SetDefault("basic.port", "8080")
+	// csrf default values
+	viper.SetDefault("csrf.cookie_secret", "csrf-secret")
+	viper.SetDefault("session_name", "behavior-session")
+	viper.SetDefault("secret", "behavior-secret")
 	// storage default values
 	viper.SetDefault("storage.mysql.user", "root")
 	viper.SetDefault("storage.mysql.password", "")
