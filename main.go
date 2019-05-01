@@ -69,6 +69,7 @@ func main() {
 		logFile := common.GetLogFile()
 		defer logFile.Close()
 		gin.DefaultWriter = io.MultiWriter(logFile)
+		common.GetDB().SetLogger(log.New(logFile, "\r\n", 0))
 	}
 
 	r := gin.Default()
