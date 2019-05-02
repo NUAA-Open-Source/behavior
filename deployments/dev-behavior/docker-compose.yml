@@ -10,7 +10,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - "8090:8080"
+      - "9005:8080"
     networks:
       - behavior-app-net
     # depends_on:

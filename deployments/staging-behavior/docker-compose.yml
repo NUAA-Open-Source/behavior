@@ -10,7 +10,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - "8085:8080"
+      - "8095:8080"
     networks:
       - behavior-app-net
     restart: always
@@ -25,7 +25,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - "8086:8080"
+      - "8096:8080"
     networks:
       - behavior-app-net
     restart: always
@@ -40,7 +40,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - "8087:8080"
+      - "8097:8080"
     networks:
       - behavior-app-net
     restart: always

@@ -69,6 +69,7 @@ func main() {
 		logFile := common.GetLogFile()
 		defer logFile.Close()
 		gin.DefaultWriter = io.MultiWriter(logFile)
+		common.GetDB().SetLogger(log.New(logFile, "\r\n", 0))
 	}
 
 	r := gin.Default()
@@ -105,10 +106,10 @@ func main() {
 	}
 
 	// CSRF
-	store := cookie.NewStore(common.CSRF_COOKIE_SECRET)
-	r.Use(sessions.Sessions(common.CSRF_SESSION_NAME, store))
+	store := cookie.NewStore([]byte(viper.GetString("csrf.cookie_secret")))
+	r.Use(sessions.Sessions(viper.GetString("csrf.session_name"), store))
 	CSRF := csrf.Middleware(csrf.Options{
-		Secret: common.CSRF_SECRET,
+		Secret: viper.GetString("csrf.secret"),
 		ErrorFunc: func(c *gin.Context) {
 			//c.String(http.StatusBadRequest, "CSRF token mismatch")
 			c.JSON(http.StatusBadRequest, gin.H{
