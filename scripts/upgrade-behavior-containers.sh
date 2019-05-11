@@ -22,8 +22,10 @@ helpMsg() {
 if [ "$2" != "" ]
 then
     # update code
+    git stash
+    git pull
     git checkout $2
-    git pull origin $2
+    # git pull origin $2
 else
     echo -e "\n [ERROR] Unrecognized branch name!\n"
     helpMsg
