@@ -14,8 +14,9 @@ storage:
     host: mysql_host_ip_or_domain
     port: mysql_port_default_3306
     database: behavior
-    max_idle_conns: 30
+    max_idle_conns: 100
     max_open_conns: 100
+    conn_max_lifetime: 30
     timezone: Asia%2FShanghai
     retry_interval: 20
 sentry:

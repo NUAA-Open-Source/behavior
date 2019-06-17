@@ -41,6 +41,8 @@ func InitDB() *gorm.DB {
 
 	log.Println("Connected to database ", viper.GetString("storage.mysql.user"), viper.GetString("storage.mysql.password"), viper.GetString("storage.mysql.host")+":"+viper.GetString("storage.mysql.port"), viper.GetString("storage.mysql.database"))
 	db.DB().SetMaxIdleConns(viper.GetInt("storage.mysql.max_idle_conns"))
+	db.DB().SetMaxOpenConns(viper.GetInt("storage.mysql.max_open_conns"))
+	db.DB().SetConnMaxLifetime(time.Duration(viper.GetInt("storage.mysql.conn_max_lifetime")) * time.Second)
 	DB = db
 	DB.LogMode(true)
 	return DB
